@@ -27,13 +27,12 @@ let middleImage = document.getElementById('middleImage');
 let rightImage = document.getElementById('rightImage');
 
 let counter = 0 ;
+
 function images ( name, src){
     this.name=name;
     this.src=`./img/${src}`;
     this.shownTimes = 0 ;
-    /*there is 2 more property remember ya n3meh */
-    // this.shownTimes
-    // this.shownTimes
+    
     images.all.push(this);
     
 }
@@ -44,7 +43,7 @@ for ( let i = 0; i < imageArray.length; i++ ){
 }
 
 function render (){
-    let leftIndex = randomNumber (0,imageArray.length-1);
+    let leftIndex = randomNumber (0, imageArray.length - 1);
     let middleIndex=randomNumber(0, imageArray.length - 1);
 let rightIndex=randomNumber(0, imageArray.length - 1);
 
@@ -52,7 +51,7 @@ let rightIndex=randomNumber(0, imageArray.length - 1);
 
 while (middleIndex === rightIndex || middleIndex === leftIndex || rightIndex===leftIndex)
 {
-     leftIndex = randomNumber (0,imageArray.length-1);
+     leftIndex = randomNumber (0, imageArray.length - 1);
      middleIndex=randomNumber(0, imageArray.length - 1);
      rightIndex=randomNumber(0, imageArray.length - 1); 
 }
@@ -67,7 +66,7 @@ images.all[middleIndex].shownTimes++;
 images.all[rightIndex].shownTimes++;
 
 
-console.log(images.all);
+// console.log(images.all);
 
 }
 function eventHandler(n) {
@@ -83,12 +82,13 @@ render();
 
 
 console.log(images.all);
-leftImage.setAttribute('src', images.all[0].src)
+
+// leftImage.setAttribute('src', images.all[0].src)
 let index = randomNumber(0, imageArray.length - 1);
 // middleImage.src = images.all[index].src;
-rightImage.src = images.all[index].src;
+// rightImage.src = images.all[index].src;
 
-console.log( leftImage, middleImage , rightImage );
+// console.log( leftImage, middleImage , rightImage );
 
 
 
