@@ -45,6 +45,7 @@ body{
 
 
   .image-partition img {
+       appearance:r
       position: relative;
       align-items: center;
       height: 400px;

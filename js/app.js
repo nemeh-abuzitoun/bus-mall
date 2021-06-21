@@ -25,7 +25,9 @@ let imagePartition = document.getElementById('imagePartition');
 let leftImage = document.getElementById('leftImage');
 let middleImage = document.getElementById('middleImage');
 let rightImage = document.getElementById('rightImage');
-
+let viewResult = document.getElementById('viewResult');
+let listOfResult =document.getElementById('listOfResult');
+let clicks=25;
 let counter = 0 ;
 
 function images ( name, src){
@@ -65,12 +67,19 @@ images.all[leftIndex].shownTimes++;
 images.all[middleIndex].shownTimes++;
 images.all[rightIndex].shownTimes++;
 
+function clicksTimes (event){
+    if ((Event.target.id==='leftImage'||Event.target.id==='rightImage'||Event.target.id==='middleImage')&& counter <clicks)
 
+clicks++;
+
+}
+
+clicksTimes();
 // console.log(images.all);
 
 }
 function eventHandler(n) {
-    if((n.target.id === 'rightImage' || n.target.id === 'leftImage'|| n.target.id === 'middleImage') && counter < 25){
+    if((n.target.id === 'rightImage' || n.target.id === 'leftImage'|| n.target.id === 'middleImage') && counter < 20){
         render();
         // console.log(counter);
         counter++;
