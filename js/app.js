@@ -72,7 +72,7 @@ images.all[rightIndex].shownTimes++;
 function eventHandler(n) {
     if((n.target.id === 'rightImage' || n.target.id === 'leftImage'|| n.target.id === 'middleImage') && counter < 25){
         render();
-        console.log(counter);
+        // console.log(counter);
         counter++;
     }
 }
@@ -100,3 +100,13 @@ function randomNumber( min, max ) {
     max = Math.floor( max );
     return Math.floor( Math.random() * ( max - min + 1 ) + min ); 
   }
+
+// //   calculat  how many times an image has been showen
+//  let b = document. getElementById('form');
+
+//  function shownTimesNo()
+//  for( let e =0 ; e < selctor.length ; e++){
+// shownTimesNo++
+
+
+//  }

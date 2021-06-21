@@ -54,13 +54,15 @@ body{
       font-size:200px;
   }
   footer{
-      background: hotpink;
+height: 20%;    
+  background: hotpink;
       display: flex;
       align-items:left;
       color: rgb(19, 18, 18);
       transform:scale(3px);
   }
-  button {
-  
-display: left;
-color:black;  }
+ form {
+     width: 10%;
+display:grid;
+color:black;  
+background-color: hotpink;}
