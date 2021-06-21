@@ -1,3 +1,4 @@
+'use strict';
 let imageArray = [
 'bag.jpg',
 'banana.jpg',
@@ -25,16 +26,15 @@ let imagePartition = document.getElementById('imagePartition');
 let leftImage = document.getElementById('leftImage');
 let middleImage = document.getElementById('middleImage');
 let rightImage = document.getElementById('rightImage');
-let viewResult = document.getElementById('viewResult');
-let listOfResult =document.getElementById('listOfResult');
-let clicks=25;
+// let viewResult = document.getElementById('viewResult');
+// let listOfResult =document.getElementById('listOfResult');
+// let clicks=25;
 let counter = 0 ;
 
-function images ( name, src){
-    this.name=name;
+function images ( imageName, src){
+    this.imageName=imageName;
     this.src=`./img/${src}`;
     this.shownTimes = 0 ;
-    
     images.all.push(this);
     
 }
@@ -67,24 +67,31 @@ images.all[leftIndex].shownTimes++;
 images.all[middleIndex].shownTimes++;
 images.all[rightIndex].shownTimes++;
 
-function clicksTimes (event){
-    if ((Event.target.id==='leftImage'||Event.target.id==='rightImage'||Event.target.id==='middleImage')&& counter <clicks)
+// function clicksTimes (event){
+//     if ((Event.target.id==='leftImage'||Event.target.id==='rightImage'||Event.target.id==='middleImage')&& counter <clicks)
 
-clicks++;
+// clicks++;
 
-}
+// }
 
-clicksTimes();
-// console.log(images.all);
+// clicksTimes();
+console.log(images.all);
 
 }
 function eventHandler(n) {
-    if((n.target.id === 'rightImage' || n.target.id === 'leftImage'|| n.target.id === 'middleImage') && counter < 20){
+    if((n.target.id === 'rightImage' || n.target.id === 'leftImage'|| n.target.id === 'middleImage') && counter < 10){
         render();
         // console.log(counter);
         counter++;
-    }
+    } else if (counter >= 10) {
+        drawChart();
+
 }
+
+}
+
+
+
 imagePartition.addEventListener('view Result',eventHandler);
 render();
 
@@ -119,3 +126,50 @@ function randomNumber( min, max ) {
 
 
 //  }
+
+function drawChart(){
+   imageName  =[];
+     view  =[];
+
+
+
+for(let i = 0; i < images.all.length; i++) {
+    imageName.push(images.all[i].imageName);
+    view.push(images.all[i].shownTimes);
+  }
+
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: imageName,
+        datasets: [{
+            label: '# of Votes',
+            data: view,
+
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 10
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+      }
+    } );
+  
+  }
