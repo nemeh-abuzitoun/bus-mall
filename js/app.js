@@ -86,8 +86,10 @@ function eventHandler(n) {
     } else if (counter >= 10) {
         drawChart();
 
+
 }
 
+localStorage.setItem('orders', JSON.stringify(images.all))
 }
 
 
@@ -142,11 +144,11 @@ for(let i = 0; i < images.all.length; i++) {
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
-    data: {
+    images: {
         labels: imageName,
-        datasets: [{
+        imagessets: [{
             label: '# of Votes',
-            data: view,
+            images: view,
 
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
@@ -173,3 +175,39 @@ var myChart = new Chart(ctx, {
     } );
   
   }
+
+  function getimages() {
+    let images = JSON.parse(localStorage.getItem('images'));
+    if(images) {
+      for(let i = 0; i < images.length; i++) {
+        let newOrder = new Order([
+            'bag.jpg',
+            'banana.jpg',
+            'bathroom.jpg',
+            'boots.jpg',
+            'breakfast.jpg',
+            'bubblegum.jpg',
+            'chair.jpg',
+            'cthulhu.jpg',
+            'dog-duck.jpg',
+            'dragon.jpg',
+            'pen.jpg',
+            'pet-sweep.jpg',
+            'scissors.jpg',
+            'shark.jpg',
+            'sweep.png',
+            'tauntaun.jpg',
+            'unicorn.jpg',
+            'usb.gif',
+            'water-can.jpg',
+            'wine-glass.jpg',
+            ]
+            );
+        newOrder.render();
+  
+      }
+    }
+    // console.log(images.all);
+  }
+  
+  getimages();
