@@ -1,213 +1,54 @@
-'use strict';
-let imageArray = [
-'bag.jpg',
-'banana.jpg',
-'bathroom.jpg',
-'boots.jpg',
-'breakfast.jpg',
-'bubblegum.jpg',
-'chair.jpg',
-'cthulhu.jpg',
-'dog-duck.jpg',
-'dragon.jpg',
-'pen.jpg',
-'pet-sweep.jpg',
-'scissors.jpg',
-'shark.jpg',
-'sweep.png',
-'tauntaun.jpg',
-'unicorn.jpg',
-'usb.gif',
-'water-can.jpg',
-'wine-glass.jpg',
-];
 
-let imagePartition = document.getElementById('imagePartition');
-let leftImage = document.getElementById('leftImage');
-let middleImage = document.getElementById('middleImage');
-let rightImage = document.getElementById('rightImage');
-// let viewResult = document.getElementById('viewResult');
-// let listOfResult =document.getElementById('listOfResult');
-// let clicks=25;
-let counter = 0 ;
-
-function images ( imageName, src){
-    this.imageName=imageName;
-    this.src=`./img/${src}`;
-    this.shownTimes = 0 ;
-    images.all.push(this);
-    
-}
-images.all =[];
- 
-for ( let i = 0; i < imageArray.length; i++ ){
-    new images ( imageArray[i].split('.')[0],imageArray[i]);
 }
 
-function render (){
-    let leftIndex = randomNumber (0, imageArray.length - 1);
-    let middleIndex=randomNumber(0, imageArray.length - 1);
-let rightIndex=randomNumber(0, imageArray.length - 1);
+Images.all = [];
 
-
-
-while (middleIndex === rightIndex || middleIndex === leftIndex || rightIndex===leftIndex)
-{
-     leftIndex = randomNumber (0, imageArray.length - 1);
-     middleIndex=randomNumber(0, imageArray.length - 1);
-     rightIndex=randomNumber(0, imageArray.length - 1); 
+for(let i = 0; i < imgArr.length; i++) {
+  let imageName = imgArr[i].split('.')[0];
+  new Images(imageName, imgArr[i]);
 }
 
+// console.log(Images.all);
 
-leftImage.src = images.all[leftIndex].src;
-middleImage.src = images.all[middleIndex].src;
-rightImage.src = images.all[rightIndex].src;
+function renderImages() {
+  leftIndex = getRandom(0, imgArr.length - 1);
+  
+  do {
+    midIndex = getRandom(0, imgArr.length - 1);
+    rightIndex = getRandom(0, imgArr.length - 1);
+  } while (leftIndex === midIndex || leftIndex === rightIndex || midIndex === rightIndex);
 
-images.all[leftIndex].shownTimes++;
-images.all[middleIndex].shownTimes++;
-images.all[rightIndex].shownTimes++;
 
-// function clicksTimes (event){
-//     if ((Event.target.id==='leftImage'||Event.target.id==='rightImage'||Event.target.id==='middleImage')&& counter <clicks)
-
-// clicks++;
 
 // }
 
-// clicksTimes();
-console.log(images.all);
+    if(event.target.id === 'midImage') {
+      Images.all[midIndex].click++;
 
-}
-function eventHandler(n) {
-    if((n.target.id === 'rightImage' || n.target.id === 'leftImage'|| n.target.id === 'middleImage') && counter < 10){
-        render();
-        // console.log(counter);
-        counter++;
-    } else if (counter >= 10) {
-        drawChart();
-
-
-}
-
-localStorage.setItem('orders', JSON.stringify(images.all))
-}
-
-
-
-imagePartition.addEventListener('view Result',eventHandler);
-render();
-
-
-
-console.log(images.all);
-
-// leftImage.setAttribute('src', images.all[0].src)
-let index = randomNumber(0, imageArray.length - 1);
-// middleImage.src = images.all[index].src;
-// rightImage.src = images.all[index].src;
-
-// console.log( leftImage, middleImage , rightImage );
-
-
-
-
-
-
-function randomNumber( min, max ) {
-    min = Math.ceil( min );
-    max = Math.floor( max );
-    return Math.floor( Math.random() * ( max - min + 1 ) + min ); 
-  }
-
-// //   calculat  how many times an image has been showen
-//  let b = document. getElementById('form');
-
-//  function shownTimesNo()
-//  for( let e =0 ; e < selctor.length ; e++){
-// shownTimesNo++
-
-
-//  }
-
-function drawChart(){
-   imageName  =[];
-     view  =[];
-
-
-
-for(let i = 0; i < images.all.length; i++) {
-    imageName.push(images.all[i].imageName);
-    view.push(images.all[i].shownTimes);
-  }
-
-
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'bar',
-    images: {
-        labels: imageName,
-        imagessets: [{
-            label: '# of Votes',
-            images: view,
-
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 10
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-      }
-    } );
-  
-  }
-
-  function getimages() {
-    let images = JSON.parse(localStorage.getItem('images'));
-    if(images) {
-      for(let i = 0; i < images.length; i++) {
-        let newOrder = new Order([
-            'bag.jpg',
-            'banana.jpg',
-            'bathroom.jpg',
-            'boots.jpg',
-            'breakfast.jpg',
-            'bubblegum.jpg',
-            'chair.jpg',
-            'cthulhu.jpg',
-            'dog-duck.jpg',
-            'dragon.jpg',
-            'pen.jpg',
-            'pet-sweep.jpg',
-            'scissors.jpg',
-            'shark.jpg',
-            'sweep.png',
-            'tauntaun.jpg',
-            'unicorn.jpg',
-            'usb.gif',
-            'water-can.jpg',
-            'wine-glass.jpg',
-            ]
-            );
-        newOrder.render();
-  
-      }
     }
-    // console.log(images.all);
+
+    if(event.target.id === 'rightImage') {
+      Images.all[rightIndex].click++;
+    }
+
+    console.log(Images.all);
+
+    renderImages();
+    counter++;
   }
-  
-  getimages();
+}
+
+function printResult(e) {
+  for(let i = 0; i < Images.all.length; i++) {
+    let li = document.createElement('li');
+    listOfResults.appendChild(li);
+    li.textContent = `${Images.all[i].name} had ${Images.all[i].click} votes, and was seen ${Images.all[i].view} times.`
+  }
+
+  viewResult.removeEventListener('click', printResult);
+}
+
+imageSection.addEventListener('click', clickFunction);
+viewResult.addEventListener('click', printResult);
+
+renderImages();

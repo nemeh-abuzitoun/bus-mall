@@ -37,14 +37,14 @@ body{
     content: '';
   }
   
-  .image-partition {
+  .imageSection {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
   }
 
 
-  .image-partition img {
+  .imageSection img {
        appearance:r
       position: relative;
       align-items: center;
