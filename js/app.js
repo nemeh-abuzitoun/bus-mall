@@ -1,121 +1,99 @@
-let imageArray = [
-'bag.jpg',
-'banana.jpg',
-'bathroom.jpg',
-'boots.jpg',
-'breakfast.jpg',
-'bubblegum.jpg',
-'chair.jpg',
-'cthulhu.jpg',
-'dog-duck.jpg',
-'dragon.jpg',
-'pen.jpg',
-'pet-sweep.jpg',
-'scissors.jpg',
-'shark.jpg',
-'sweep.png',
-'tauntaun.jpg',
-'unicorn.jpg',
-'usb.gif',
-'water-can.jpg',
-'wine-glass.jpg',
-];
+'user strict';
+const imageSection = document.getElementById('imageSection');
+const leftImage = document.getElementById('leftImage');
+const midImage = document.getElementById('midImage');
+const rightImage = document.getElementById('rightImage');
+const viewResult = document.getElementById('viewResult');
+const listOfResults = document.getElementById('listOfResults');
 
-let imagePartition = document.getElementById('imagePartition');
-let leftImage = document.getElementById('leftImage');
-let middleImage = document.getElementById('middleImage');
-let rightImage = document.getElementById('rightImage');
-let viewResult = document.getElementById('viewResult');
-let listOfResult =document.getElementById('listOfResult');
-let clicks=25;
-let counter = 0 ;
+let round = 25;
+let counter = 0;
 
-function images ( name, src){
-    this.name=name;
-    this.src=`./img/${src}`;
-    this.shownTimes = 0 ;
-    
-    images.all.push(this);
-    
-}
-images.all =[];
- 
-for ( let i = 0; i < imageArray.length; i++ ){
-    new images ( imageArray[i].split('.')[0],imageArray[i]);
+// let globalLeftIndex;
+// let globalMidIndex;
+// let globalRightIndex;
+
+let leftIndex;
+let midIndex;
+let rightIndex;
+
+let imgArr = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'tauntaun.jpg', 'unicorn.jpg', 'usb.gif', 'water-can.jpg', 'wine-glass.jpg'];
+
+function Images(name, src) {
+  this.name = name;
+  this.imgSrc = `./img/${src}`;
+  this.view = 0;
+  this.click = 0;
+  Images.all.push(this);
 }
 
-function render (){
-    let leftIndex = randomNumber (0, imageArray.length - 1);
-    let middleIndex=randomNumber(0, imageArray.length - 1);
-let rightIndex=randomNumber(0, imageArray.length - 1);
+Images.all = [];
 
-
-
-while (middleIndex === rightIndex || middleIndex === leftIndex || rightIndex===leftIndex)
-{
-     leftIndex = randomNumber (0, imageArray.length - 1);
-     middleIndex=randomNumber(0, imageArray.length - 1);
-     rightIndex=randomNumber(0, imageArray.length - 1); 
+for(let i = 0; i < imgArr.length; i++) {
+  let imageName = imgArr[i].split('.')[0];
+  new Images(imageName, imgArr[i]);
 }
 
+// console.log(Images.all);
 
-leftImage.src = images.all[leftIndex].src;
-middleImage.src = images.all[middleIndex].src;
-rightImage.src = images.all[rightIndex].src;
+function renderImages() {
+  leftIndex = getRandom(0, imgArr.length - 1);
+  
+  do {
+    midIndex = getRandom(0, imgArr.length - 1);
+    rightIndex = getRandom(0, imgArr.length - 1);
+  } while (leftIndex === midIndex || leftIndex === rightIndex || midIndex === rightIndex);
 
-images.all[leftIndex].shownTimes++;
-images.all[middleIndex].shownTimes++;
-images.all[rightIndex].shownTimes++;
+  leftImage.src = Images.all[leftIndex].imgSrc;
+  midImage.src = Images.all[midIndex].imgSrc;
+  rightImage.src = Images.all[rightIndex].imgSrc;
 
-function clicksTimes (event){
-    if ((Event.target.id==='leftImage'||Event.target.id==='rightImage'||Event.target.id==='middleImage')&& counter <clicks)
-
-clicks++;
+  Images.all[leftIndex].view++;
+  Images.all[midIndex].view++;
+  Images.all[rightIndex].view++;
 
 }
 
-clicksTimes();
-// console.log(images.all);
+function clickFunction(event) {
+  if((event.target.id === 'leftImage' || event.target.id === 'midImage' || event.target.id === 'rightImage') && counter < round) {
+    // console.log(event.target.id);
+    if(event.target.id === 'leftImage') {
+      Images.all[leftIndex].click++;
 
-}
-function eventHandler(n) {
-    if((n.target.id === 'rightImage' || n.target.id === 'leftImage'|| n.target.id === 'middleImage') && counter < 20){
-        render();
-        // console.log(counter);
-        counter++;
     }
+
+    if(event.target.id === 'midImage') {
+      Images.all[midIndex].click++;
+
+    }
+
+    if(event.target.id === 'rightImage') {
+      Images.all[rightIndex].click++;
+    }
+
+    console.log(Images.all);
+
+    renderImages();
+    counter++;
+  }
 }
-imagePartition.addEventListener('view Result',eventHandler);
-render();
 
-
-
-console.log(images.all);
-
-// leftImage.setAttribute('src', images.all[0].src)
-let index = randomNumber(0, imageArray.length - 1);
-// middleImage.src = images.all[index].src;
-// rightImage.src = images.all[index].src;
-
-// console.log( leftImage, middleImage , rightImage );
-
-
-
-
-
-
-function randomNumber( min, max ) {
-    min = Math.ceil( min );
-    max = Math.floor( max );
-    return Math.floor( Math.random() * ( max - min + 1 ) + min ); 
+function printResult(e) {
+  for(let i = 0; i < Images.all.length; i++) {
+    let li = document.createElement('li');
+    listOfResults.appendChild(li);
+    li.textContent = `${Images.all[i].name} had ${Images.all[i].click} votes, and was seen ${Images.all[i].view} times.`
   }
 
-// //   calculat  how many times an image has been showen
-//  let b = document. getElementById('form');
+  viewResult.removeEventListener('click', printResult);
+}
 
-//  function shownTimesNo()
-//  for( let e =0 ; e < selctor.length ; e++){
-// shownTimesNo++
+imageSection.addEventListener('click', clickFunction);
+viewResult.addEventListener('click', printResult);
 
+renderImages();
 
-//  }
+console.log(Images.all)
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min); 
+}
